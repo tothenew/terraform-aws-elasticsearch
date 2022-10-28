@@ -58,6 +58,11 @@ variable "instance_count" {
 
 variable "availability_zone_count" {
     type = number
+    default = 2
+}
+
+variable "zone_awareness_enabled" {
+    type = bool
 }
 
 variable "kms_key_id" {

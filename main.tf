@@ -38,7 +38,7 @@ resource "aws_elasticsearch_domain" "elasticsearch" {
         zone_awareness_config {
             availability_zone_count = var.availability_zone_count
         }
-        zone_awareness_enabled = var.availability_zone_count == 3 ? true : false
+        zone_awareness_enabled = var.zone_awareness_enabled
     }
     vpc_options {
         subnet_ids         = var.subnet_ids
