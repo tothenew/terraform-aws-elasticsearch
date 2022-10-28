@@ -1,0 +1,71 @@
+variable "region" {
+    type        = string
+    description = "A string value for Launch resources in which AWS Region"
+}
+
+variable "project_name_prefix" {
+    type        = string
+    description = "A string value to describe prefix of all the resources"
+}
+
+variable "common_tags" {
+    type        = map(string)
+    description = "A map to add common tags to all the resources"
+}
+
+variable "vpc_id" {
+    type        = string
+    description = "A string value for VPC ID"
+}
+
+variable "security_group_id" {
+    type = list(string)
+    description = "A string value for Security Group ID"
+}
+
+variable "cloudwatch_logs_retention" {
+    type = number
+}
+
+variable "subnet_ids" {
+    type = list(string)
+}
+
+variable "volume_type" {
+    type = string
+}
+
+variable "volume_size" {
+    type = number
+}
+
+variable "elasticsearch_version" {
+    type = string
+    default = "7.10"
+}
+
+variable "instance_type" {
+    type = string
+}
+
+variable "account_id" {
+    type = number
+}
+
+variable "instance_count" {
+    type = number
+}
+
+variable "availability_zone_count" {
+    type = number
+}
+
+variable "kms_key_id" {
+    type = string
+    default = "aws/es"
+}
+
+variable "automated_snapshot_start_hour" {
+    type = number
+    default = 22
+}
