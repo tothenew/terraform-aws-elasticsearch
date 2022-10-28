@@ -68,6 +68,15 @@ resource "aws_elasticsearch_domain" "elasticsearch" {
         "rest.action.multi.allow_explicit_index" = "true"
     }
 
+    advanced_security_options {
+        enabled                        = var.advanced_security_options_enabled
+        internal_user_database_enabled = true
+        master_user_options {
+            master_user_name     = var.master_user_name
+            master_user_password = var.master_user_password
+        }
+    }
+
     access_policies = <<CONFIG
 {
     "Version": "2012-10-17",

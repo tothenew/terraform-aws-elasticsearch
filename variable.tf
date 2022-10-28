@@ -19,7 +19,7 @@ variable "vpc_id" {
 }
 
 variable "security_group_id" {
-    type = list(string)
+    type        = list(string)
     description = "A string value for Security Group ID"
 }
 
@@ -40,7 +40,7 @@ variable "volume_size" {
 }
 
 variable "elasticsearch_version" {
-    type = string
+    type    = string
     default = "7.10"
 }
 
@@ -57,7 +57,7 @@ variable "instance_count" {
 }
 
 variable "availability_zone_count" {
-    type = number
+    type    = number
     default = 2
 }
 
@@ -66,11 +66,24 @@ variable "zone_awareness_enabled" {
 }
 
 variable "kms_key_id" {
-    type = string
+    type    = string
     default = "aws/es"
 }
 
 variable "automated_snapshot_start_hour" {
-    type = number
+    type    = number
     default = 22
+}
+
+variable "advanced_security_options_enabled" {
+    type    = bool
+    default = false
+}
+variable "master_user_name" {
+    type = string
+    default = ""
+}
+variable "master_user_password" {
+    type = string
+    default = ""
 }
