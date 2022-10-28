@@ -1,7 +1,7 @@
 resource "aws_cloudwatch_log_group" "cloudwatch_log_group" {
     name              = "${var.project_name_prefix}-elasticsearch-log"
     retention_in_days = var.cloudwatch_logs_retention
-    tags              = merge(var.common_tags, map("Name", "${var.project_name_prefix}-elasticsearch"))
+    tags              = merge(var.common_tags, tomap({ "Name" : "${var.project_name_prefix}-elasticsearch" }))
 }
 
 resource "aws_cloudwatch_log_resource_policy" "cloudwatch_log_resource_policy" {
