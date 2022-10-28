@@ -67,7 +67,6 @@ variable "zone_awareness_enabled" {
 
 variable "kms_key_id" {
     type    = string
-    default = "aws/es"
 }
 
 variable "automated_snapshot_start_hour" {
@@ -80,10 +79,10 @@ variable "advanced_security_options_enabled" {
     default = false
 }
 variable "master_user_name" {
-    type = string
+    type    = string
     default = ""
 }
 variable "master_user_password" {
-    type = string
+    type    = string
     default = ""
 }
