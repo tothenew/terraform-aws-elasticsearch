@@ -136,12 +136,12 @@ variable "ebs_optimized" {
 
 variable "disable_api_termination" {
     type    = bool
-    default = true
+    default = false
 }
 
 variable "disable_api_stop" {
     type    = bool
-    default = true
+    default = false
 }
 
 variable "source_dest_check" {
