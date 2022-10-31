@@ -26,10 +26,21 @@ variable "account_id" {
     type = number
     default = 999999999999
 }
-variable "elasticsearch_sg_id" {
-
-}
+variable "security_group_id" {}
 variable "subnet_ids" {}
 variable "vpc_id" {}
 variable "kms_key_id" {}
 variable "instance_type" {}
+variable "volume_size" {}
+variable "volume_type" {
+    default = "gp3"
+}
+variable "instance_count" {
+    default = 1
+}
+variable "cloudwatch_logs_retention" {
+    default = 7
+}
+variable "zone_awareness_enabled" {
+    default = false
+}
