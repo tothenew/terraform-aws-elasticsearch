@@ -130,6 +130,7 @@ resource "aws_instance" "ec2_elasticsearch" {
     iam_instance_profile    = var.iam_instance_profile
     ebs_optimized           = var.ebs_optimized
     disable_api_termination = var.disable_api_termination
+    disable_api_stop        = var.disable_api_stop
     user_data_base64        = base64encode(data.template_file.user_data.rendered)
     source_dest_check       = var.source_dest_check
 

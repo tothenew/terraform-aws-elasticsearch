@@ -24,7 +24,7 @@ variable "security_group_ids" {
 }
 
 variable "cloudwatch_logs_retention" {
-    type = number
+    type    = number
     default = 7
 }
 
@@ -33,22 +33,22 @@ variable "subnet_ids" {
 }
 
 variable "volume_type" {
-    type = string
+    type    = string
     default = "gp3"
 }
 
 variable "volume_size" {
-    type = number
+    type    = number
     default = 100
 }
 
 variable "volume_encrypted" {
-    type = bool
+    type    = bool
     default = true
 }
 
 variable "delete_on_termination" {
-    type = bool
+    type    = bool
     default = true
 }
 
@@ -66,7 +66,7 @@ variable "account_id" {
 }
 
 variable "instance_count" {
-    type = number
+    type    = number
     default = 1
 }
 
@@ -76,7 +76,7 @@ variable "availability_zone_count" {
 }
 
 variable "zone_awareness_enabled" {
-    type = bool
+    type    = bool
     default = false
 }
 
@@ -110,36 +110,41 @@ variable "create_iam_service_linked_role" {
 }
 
 variable "create_aws_elasticsearch" {
-    type = bool
+    type    = bool
     default = false
 }
 
 variable "create_aws_ec2_elasticsearch" {
-    type = bool
+    type    = bool
     default = true
 }
 
 variable "key_name" {
-    type = string
+    type    = string
     default = "undefined"
 }
 
 variable "iam_instance_profile" {
-    type = string
+    type    = string
     default = "undefined"
 }
 
 variable "ebs_optimized" {
-    type = bool
+    type    = bool
     default = true
 }
 
 variable "disable_api_termination" {
-    type = bool
+    type    = bool
+    default = true
+}
+
+variable "disable_api_stop" {
+    type    = bool
     default = true
 }
 
 variable "source_dest_check" {
-    type = bool
+    type    = bool
     default = true
 }
