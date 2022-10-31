@@ -7,6 +7,7 @@ variable "profile" {
     type        = string
     description = "A string value for setting AWS Profile"
 }
+variable "environment" {}
 variable "project_name_prefix" {
     type        = string
     description = "A string value to describe prefix of all the resources"
@@ -26,7 +27,7 @@ variable "account_id" {
     type = number
     default = 999999999999
 }
-variable "security_group_id" {}
+variable "security_group_ids" {}
 variable "subnet_ids" {}
 variable "vpc_id" {}
 variable "kms_key_id" {}

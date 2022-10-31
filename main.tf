@@ -42,7 +42,7 @@ resource "aws_elasticsearch_domain" "elasticsearch" {
     }
     vpc_options {
         subnet_ids         = var.subnet_ids
-        security_group_ids = var.security_group_id
+        security_group_ids = var.security_group_ids
     }
     ebs_options {
         ebs_enabled = true

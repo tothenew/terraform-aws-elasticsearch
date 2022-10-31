@@ -18,7 +18,7 @@ variable "vpc_id" {
     description = "A string value for VPC ID"
 }
 
-variable "security_group_id" {
+variable "security_group_ids" {
     type        = list(string)
     description = "A string value for Security Group ID"
 }

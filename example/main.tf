@@ -8,7 +8,7 @@ module "elasticsearch" {
     instance_type             = var.instance_type
     project_name_prefix       = local.project_name_prefix
     region                    = var.region
-    security_group_id         = [var.security_group_id]
+    security_group_id         = var.security_group_ids
     subnet_ids                = var.subnet_ids
     volume_size               = var.volume_size
     volume_type               = var.volume_type
