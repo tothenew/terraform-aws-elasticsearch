@@ -14,4 +14,5 @@ module "elasticsearch" {
     volume_type               = var.volume_type
     vpc_id                    = var.vpc_id
     kms_key_id                = var.kms_key_id
+    create_iam_service_linked_role = var.create_iam_service_linked_role
 }

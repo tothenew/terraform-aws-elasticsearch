@@ -45,3 +45,7 @@ variable "cloudwatch_logs_retention" {
 variable "zone_awareness_enabled" {
     default = false
 }
+variable "create_iam_service_linked_role" {
+    type        = bool
+    default     = true
+}

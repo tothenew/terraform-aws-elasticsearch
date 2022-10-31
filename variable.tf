@@ -87,3 +87,9 @@ variable "master_user_password" {
     type    = string
     default = ""
 }
+
+variable "create_iam_service_linked_role" {
+    type        = bool
+    default     = false
+    description = "Whether to create `AWSServiceRoleForAmazonElasticsearchService` service-linked role. Set it to `false` if you already have an ElasticSearch cluster created in the AWS account and AWSServiceRoleForAmazonElasticsearchService already exists."
+}

@@ -4,6 +4,11 @@ resource "aws_cloudwatch_log_group" "cloudwatch_log_group" {
     tags              = merge(var.common_tags, tomap({ "Name" : "${var.project_name_prefix}-elasticsearch" }))
 }
 
+resource "aws_iam_service_linked_role" "service_linked_role" {
+    count            = var.create_iam_service_linked_role ? 1 : 0
+    aws_service_name = "es.amazonaws.com"
+}
+
 resource "aws_cloudwatch_log_resource_policy" "cloudwatch_log_resource_policy" {
     policy_name     = "${var.project_name_prefix}-elasticsearch-log-policy"
     policy_document = <<CONFIG
