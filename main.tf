@@ -66,7 +66,7 @@ resource "aws_elasticsearch_domain" "elasticsearch" {
     }
     log_publishing_options {
         enabled                  = true
-        cloudwatch_log_group_arn = var.create_aws_elasticsearch && !var.create_aws_ec2_elasticsearch ? aws_cloudwatch_log_group.cloudwatch_log_group.arn : "undefined"
+        cloudwatch_log_group_arn = aws_cloudwatch_log_group.cloudwatch_log_group[0].arn
         log_type                 = "INDEX_SLOW_LOGS"
     }
     snapshot_options {
