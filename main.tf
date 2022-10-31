@@ -41,7 +41,7 @@ resource "aws_elasticsearch_domain" "elasticsearch" {
     tags                  = merge(var.common_tags, tomap({ "Name" : "${var.project_name_prefix}-elasticsearch" }))
 
     cluster_config {
-        instance_type  = var.instance_type
+        instance_type  = "${var.instance_type}.elasticsearch"
         instance_count = var.instance_count
         zone_awareness_config {
             availability_zone_count = var.availability_zone_count
