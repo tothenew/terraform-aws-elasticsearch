@@ -1,18 +1,28 @@
 module "elasticsearch" {
-    source                    = "git::https://github.com/tothenew/terraform-aws-elasticsearch.git"
-    account_id                = var.account_id
-    zone_awareness_enabled    = var.zone_awareness_enabled
-    cloudwatch_logs_retention = var.cloudwatch_logs_retention
-    common_tags               = local.common_tags
-    instance_count            = var.instance_count
-    instance_type             = var.instance_type
-    project_name_prefix       = local.project_name_prefix
-    region                    = var.region
-    security_group_id         = var.security_group_ids
-    subnet_ids                = var.subnet_ids
-    volume_size               = var.volume_size
-    volume_type               = var.volume_type
-    vpc_id                    = var.vpc_id
-    kms_key_id                = var.kms_key_id
-    create_iam_service_linked_role = var.create_iam_service_linked_role
+    source              = "git::https://github.com/tothenew/terraform-aws-elasticsearch.git"
+    account_id          = 999999999999
+    common_tags         = {
+        "Project"     = "ToTheNew",
+        "Environment" = "dev"
+    }
+    instance_count      = 1
+    instance_type       = "t3.snmall"
+    project_name_prefix = "dev-tothenew"
+    region              = "us-east-1"
+    security_group_ids  = ["sg-999999999999"]
+    subnet_ids          = ["subnet-999999999999"]
+    volume_size = 10
+    vpc_id      = "vpc-999999999999"
+
+    create_aws_elasticsearch     = false
+    create_aws_ec2_elasticsearch = true
+
+    #  create_iam_service_linked_role = true
+    #  cloudwatch_logs_retention = 7
+
+    kms_key_id              = "nj23ihun-wcsn2-mnwnj-dsaxsa"
+    key_name                = "tothenew"
+    iam_instance_profile    = "tothenew"
+    disable_api_termination = true
+    disable_api_stop        = true
 }
