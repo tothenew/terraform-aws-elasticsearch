@@ -63,6 +63,7 @@ variable "availability_zone_count" {
 
 variable "zone_awareness_enabled" {
     type = bool
+    default = false
 }
 
 variable "kms_key_id" {
