@@ -6,12 +6,10 @@ variable "region" {
 variable "profile" {
     type        = string
     description = "A string value for setting AWS Profile"
-    default     = "ttn-ott-demo"
 }
 variable "project_name_prefix" {
     type        = string
     description = "A string value to describe prefix of all the resources"
-    default     = "forte"
 }
 variable "common_tags" {
     type        = map(string)
@@ -23,7 +21,6 @@ variable "common_tags" {
 variable "project" {
     type        = string
     description = "A string value for tag as Project Name"
-    default     = "Forte"
 }
 variable "account_id" {
     type = number
