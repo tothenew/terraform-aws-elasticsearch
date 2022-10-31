@@ -116,6 +116,10 @@ data "aws_ami" "amazon_linux_2" {
     owners = ["amazon"]
 }
 
+data "template_file" "user_data" {
+    template = file("${path.module}/user_data.sh")
+}
+
 resource "aws_instance" "ec2_elasticsearch" {
     count                   = !var.create_aws_elasticsearch && var.create_aws_ec2_elasticsearch ? 1 : 0
     ami                     = data.aws_ami.amazon_linux_2.id
@@ -126,7 +130,7 @@ resource "aws_instance" "ec2_elasticsearch" {
     iam_instance_profile    = var.iam_instance_profile
     ebs_optimized           = var.ebs_optimized
     disable_api_termination = var.disable_api_termination
-    user_data_base64        = base64encode(file("user_data.sh"))
+    user_data_base64        = base64encode(data.template_file.user_data.rendered)
     source_dest_check       = var.source_dest_check
 
     volume_tags = merge(var.common_tags, tomap({ "Name" : "${var.project_name_prefix}-elasticsearch" }))
