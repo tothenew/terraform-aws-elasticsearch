@@ -82,7 +82,7 @@ variable "zone_awareness_enabled" {
 
 variable "kms_key_id" {
     type    = string
-    default = "aws/ebs"
+    default = ""
 }
 
 variable "automated_snapshot_start_hour" {
