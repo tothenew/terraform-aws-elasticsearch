@@ -1,15 +1,19 @@
 output "elasticsearch_arn" {
-    value = aws_elasticsearch_domain.elasticsearch.arn
+    value = var.create_aws_elasticsearch && !var.create_aws_ec2_elasticsearch ? aws_elasticsearch_domain.elasticsearch[0].arn : "undefined"
 }
 output "elasticsearch_domain_id" {
-    value = aws_elasticsearch_domain.elasticsearch.domain_id
+    value = var.create_aws_elasticsearch && !var.create_aws_ec2_elasticsearch ? aws_elasticsearch_domain.elasticsearch[0].domain_id : "undefined"
 }
 output "elasticsearch_domain_name" {
-    value = aws_elasticsearch_domain.elasticsearch.domain_name
+    value = var.create_aws_elasticsearch && !var.create_aws_ec2_elasticsearch ? aws_elasticsearch_domain.elasticsearch[0].domain_name : "undefined"
 }
 output "elasticsearch_endpoint" {
-    value = aws_elasticsearch_domain.elasticsearch.endpoint
+    value = var.create_aws_elasticsearch && !var.create_aws_ec2_elasticsearch ? aws_elasticsearch_domain.elasticsearch[0].endpoint : "undefined"
 }
 output "kibana_endpoint" {
-    value = aws_elasticsearch_domain.elasticsearch.kibana_endpoint
+    value = var.create_aws_elasticsearch && !var.create_aws_ec2_elasticsearch ? aws_elasticsearch_domain.elasticsearch[0].kibana_endpoint : "undefined"
+}
+
+output "ec2_elasticsearch" {
+    value = !var.create_aws_elasticsearch && var.create_aws_ec2_elasticsearch ? aws_instance.ec2_elasticsearch[0].private_ip : "undefined"
 }
