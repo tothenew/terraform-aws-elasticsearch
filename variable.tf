@@ -25,6 +25,7 @@ variable "security_group_ids" {
 
 variable "cloudwatch_logs_retention" {
     type = number
+    default = 7
 }
 
 variable "subnet_ids" {
@@ -33,10 +34,22 @@ variable "subnet_ids" {
 
 variable "volume_type" {
     type = string
+    default = "gp3"
 }
 
 variable "volume_size" {
     type = number
+    default = 100
+}
+
+variable "volume_encrypted" {
+    type = bool
+    default = true
+}
+
+variable "delete_on_termination" {
+    type = bool
+    default = true
 }
 
 variable "elasticsearch_version" {
@@ -54,6 +67,7 @@ variable "account_id" {
 
 variable "instance_count" {
     type = number
+    default = 1
 }
 
 variable "availability_zone_count" {
@@ -68,6 +82,7 @@ variable "zone_awareness_enabled" {
 
 variable "kms_key_id" {
     type    = string
+    default = "aws/ebs"
 }
 
 variable "automated_snapshot_start_hour" {
@@ -92,4 +107,39 @@ variable "create_iam_service_linked_role" {
     type        = bool
     default     = false
     description = "Whether to create `AWSServiceRoleForAmazonElasticsearchService` service-linked role. Set it to `false` if you already have an ElasticSearch cluster created in the AWS account and AWSServiceRoleForAmazonElasticsearchService already exists."
+}
+
+variable "create_aws_elasticsearch" {
+    type = bool
+    default = false
+}
+
+variable "create_aws_ec2_elasticsearch" {
+    type = bool
+    default = true
+}
+
+variable "key_name" {
+    type = string
+    default = "undefined"
+}
+
+variable "iam_instance_profile" {
+    type = string
+    default = "undefined"
+}
+
+variable "ebs_optimized" {
+    type = bool
+    default = true
+}
+
+variable "disable_api_termination" {
+    type = bool
+    default = true
+}
+
+variable "source_dest_check" {
+    type = bool
+    default = true
 }
