@@ -143,7 +143,6 @@ resource "aws_instance" "ec2_elasticsearch" {
         kms_key_id            = var.kms_key_id
         volume_size           = var.volume_size
         volume_type           = var.volume_type
-        tags                  = merge(var.common_tags, tomap({ "Name" : "${var.project_name_prefix}-elasticsearch" }))
     }
 
 }
