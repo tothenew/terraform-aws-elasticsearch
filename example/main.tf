@@ -1,6 +1,5 @@
 module "elasticsearch" {
     source              = "git::https://github.com/tothenew/terraform-aws-elasticsearch.git"
-    account_id          = 999999999999
     common_tags         = {
         "Project"     = "ToTheNew",
         "Environment" = "dev"
