@@ -1,3 +1,5 @@
+data "aws_caller_identity" "current" {}
+
 resource "aws_cloudwatch_log_group" "cloudwatch_log_group" {
     count             = var.create_aws_elasticsearch && !var.create_aws_ec2_elasticsearch ? 1 : 0
     name              = "${var.project_name_prefix}-elasticsearch-log"
@@ -93,7 +95,7 @@ resource "aws_elasticsearch_domain" "elasticsearch" {
             "Action": "es:*",
             "Principal": "*",
             "Effect": "Allow",
-            "Resource": "arn:aws:es:${var.region}:${var.account_id}:domain/${var.project_name_prefix}-elasticsearch/*"
+            "Resource": "arn:aws:es:${var.region}:${data.aws_caller_identity.current.account_id}:domain/${var.project_name_prefix}-elasticsearch/*"
         }
     ]
 }

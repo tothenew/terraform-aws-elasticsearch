@@ -6,7 +6,7 @@ module "elasticsearch" {
         "Environment" = "dev"
     }
     instance_count      = 1
-    instance_type       = "t3.snmall"
+    instance_type       = "t3.small"
     project_name_prefix = "dev-tothenew"
     region              = "us-east-1"
     security_group_ids  = ["sg-999999999999"]

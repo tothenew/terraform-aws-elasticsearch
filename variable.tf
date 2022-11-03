@@ -61,10 +61,6 @@ variable "instance_type" {
     type = string
 }
 
-variable "account_id" {
-    type = number
-}
-
 variable "instance_count" {
     type    = number
     default = 1
