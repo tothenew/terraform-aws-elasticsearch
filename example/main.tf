@@ -1,8 +1,3 @@
-# terraform-aws-elasticsearch
-
-## Usage
-
-```
 module "elasticsearch" {
     source              = "git::https://github.com/tothenew/terraform-aws-elasticsearch.git"
     common_tags         = {
@@ -30,7 +25,3 @@ module "elasticsearch" {
     disable_api_termination = true
     disable_api_stop        = true
 }
-```
-
-<!--- BEGIN_TF_DOCS --->
-<!--- END_TF_DOCS --->
