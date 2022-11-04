@@ -25,76 +25,92 @@ variable "security_group_ids" {
 
 variable "cloudwatch_logs_retention" {
     type    = number
+    description = "Cloudwatch logs of the AWS Elasticsearch retention period"
     default = 7
 }
 
 variable "subnet_ids" {
     type = list(string)
+    description = "Subnet Ids where server will be launched"
 }
 
 variable "volume_type" {
     type    = string
+    description = "Volume type for EC2 instance default latest type"
     default = "gp3"
 }
 
 variable "volume_size" {
     type    = number
+    description = "Volume size of the EC2 instance"
     default = 100
 }
 
 variable "volume_encrypted" {
     type    = bool
+    description = "Volume can be encrypted through this check"
     default = true
 }
 
 variable "delete_on_termination" {
     type    = bool
+    description = "Delete the volume after the termination of the EC2"
     default = true
 }
 
 variable "elasticsearch_version" {
     type    = string
+    description = "AWS Elasticsearch version default is 7.10 which is latest"
     default = "7.10"
 }
 
 variable "instance_type" {
     type = string
+    description = "Instance type of the Server"
 }
 
 variable "instance_count" {
     type    = number
+    description = "Number of node of AWS elasticsearch you want to launch"
     default = 1
 }
 
 variable "availability_zone_count" {
     type    = number
+    description = "Availability Zone count when zone is enabled"
     default = 2
 }
 
 variable "zone_awareness_enabled" {
     type    = bool
+    description = "Zone Awareness enable for multi AZ"
     default = false
 }
 
 variable "kms_key_id" {
     type    = string
+    description = "KMS key ID for creating AWS resources"
 }
 
 variable "automated_snapshot_start_hour" {
     type    = number
+    description = "AWS elasticsearch snapshot start hour time"
     default = 22
 }
 
 variable "advanced_security_options_enabled" {
     type    = bool
+    description = "Advance Security Option to Enable for Authentication"
     default = false
 }
 variable "master_user_name" {
     type    = string
+    description = "Username of the security option enabled"
     default = ""
 }
 variable "master_user_password" {
     type    = string
+    description = "Password of the security option enabled"
     default = ""
 }
 
@@ -106,40 +122,48 @@ variable "create_iam_service_linked_role" {
 
 variable "create_aws_elasticsearch" {
     type    = bool
+    description = "If you want to create the AWS elasticsearch enable this check"
     default = false
 }
 
 variable "create_aws_ec2_elasticsearch" {
     type    = bool
+    description = "If you want to create the AWS EC2 instance elasticsearch enable this check"
     default = true
 }
 
 variable "key_name" {
     type    = string
+    description = "Key name for launching the EC2 instance"
     default = "undefined"
 }
 
 variable "iam_instance_profile" {
     type    = string
+    description = "IAM Profile name for launching the EC2 instance"
     default = "undefined"
 }
 
 variable "ebs_optimized" {
     type    = bool
+    description = "EBS optimized enable"
     default = true
 }
 
 variable "disable_api_termination" {
     type    = bool
+    description = "Disable API termination means disable instance termination"
     default = false
 }
 
 variable "disable_api_stop" {
     type    = bool
+    description = "Disable API stop means disable instance stop"
     default = false
 }
 
 variable "source_dest_check" {
     type    = bool
+    description = "Source destination Check"
     default = true
 }
