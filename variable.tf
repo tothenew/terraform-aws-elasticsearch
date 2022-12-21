@@ -167,3 +167,9 @@ variable "source_dest_check" {
   description = "Source destination Check"
   default     = true
 }
+
+variable "ami_id" {
+  type = string
+  description = "AMI id of the Amazon Linux 2"
+  default = ""
+}

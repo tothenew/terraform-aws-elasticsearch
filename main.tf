@@ -124,7 +124,7 @@ data "template_file" "user_data" {
 
 resource "aws_instance" "ec2_elasticsearch" {
   count                   = !var.create_aws_elasticsearch && var.create_aws_ec2_elasticsearch ? 1 : 0
-  ami                     = data.aws_ami.amazon_linux_2.id
+  ami                     = var.ami_id == "" ? data.aws_ami.amazon_linux_2.id : var.ami_id
   instance_type           = var.instance_type
   subnet_id               = var.subnet_ids[0]
   vpc_security_group_ids  = var.security_group_ids

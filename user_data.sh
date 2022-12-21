@@ -8,3 +8,10 @@ sudo rpm --install elasticsearch-7.17.7-x86_64.rpm
 sudo systemctl daemon-reload
 sudo systemctl enable elasticsearch.service
 sudo systemctl start elasticsearch.service
+
+echo "transport.host: localhost" >> /etc/elasticsearch/elasticsearch.yml
+echo "transport.tcp.port: 9300" >> /etc/elasticsearch/elasticsearch.yml
+echo "http.port: 9200"  >> /etc/elasticsearch/elasticsearch.yml
+echo "network.host: 0.0.0.0"  >> /etc/elasticsearch/elasticsearch.yml
+echo "xpack.security.enabled: false"  >> /etc/elasticsearch/elasticsearch.yml
+echo "xpack.security.transport.ssl.enabled: false"  >> /etc/elasticsearch/elasticsearch.yml
