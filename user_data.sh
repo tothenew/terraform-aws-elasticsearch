@@ -15,3 +15,5 @@ echo "http.port: 9200"  >> /etc/elasticsearch/elasticsearch.yml
 echo "network.host: 0.0.0.0"  >> /etc/elasticsearch/elasticsearch.yml
 echo "xpack.security.enabled: false"  >> /etc/elasticsearch/elasticsearch.yml
 echo "xpack.security.transport.ssl.enabled: false"  >> /etc/elasticsearch/elasticsearch.yml
+
+sudo systemctl restart elasticsearch.service
