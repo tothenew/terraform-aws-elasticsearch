@@ -51,6 +51,7 @@ No modules.
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | <a name="input_advanced_security_options_enabled"></a> [advanced\_security\_options\_enabled](#input\_advanced\_security\_options\_enabled) | Advance Security Option to Enable for Authentication | `bool` | `false` | no |
+| <a name="input_ami_id"></a> [ami\_id](#input\_ami\_id) | AMI id of the Amazon Linux 2 | `string` | `""` | no |
 | <a name="input_automated_snapshot_start_hour"></a> [automated\_snapshot\_start\_hour](#input\_automated\_snapshot\_start\_hour) | AWS elasticsearch snapshot start hour time | `number` | `22` | no |
 | <a name="input_availability_zone_count"></a> [availability\_zone\_count](#input\_availability\_zone\_count) | Availability Zone count when zone is enabled | `number` | `2` | no |
 | <a name="input_cloudwatch_logs_retention"></a> [cloudwatch\_logs\_retention](#input\_cloudwatch\_logs\_retention) | Cloudwatch logs of the AWS Elasticsearch retention period | `number` | `7` | no |
