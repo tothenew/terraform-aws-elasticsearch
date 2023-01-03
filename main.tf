@@ -157,18 +157,3 @@ resource "aws_ssm_parameter" "elasticsearch_host" {
   tags        = merge(var.common_tags, tomap({ "Name" : "${var.project_name_prefix}-elasticsearch" }))
 }
 
-resource "aws_ssm_parameter" "elasticsearch_username" {
-  name        = "/${var.project_name_prefix}/elasticsearch/username"
-  description = "Elasticsearch Username"
-  type        = "SecureString"
-  value       = ""
-  tags        = merge(var.common_tags, tomap({ "Name" : "${var.project_name_prefix}-elasticsearch" }))
-}
-
-resource "aws_ssm_parameter" "elasticsearch_password" {
-  name        = "/${var.project_name_prefix}/elasticsearch/password"
-  description = "Elasticsearch Password"
-  type        = "SecureString"
-  value       = ""
-  tags        = merge(var.common_tags, tomap({ "Name" : "${var.project_name_prefix}-elasticsearch" }))
-}
