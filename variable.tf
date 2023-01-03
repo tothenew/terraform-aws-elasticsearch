@@ -169,7 +169,7 @@ variable "source_dest_check" {
 }
 
 variable "ami_id" {
-  type = string
+  type        = string
   description = "AMI id of the Amazon Linux 2"
-  default = ""
+  default     = ""
 }
