@@ -148,3 +148,27 @@ resource "aws_instance" "ec2_elasticsearch" {
   }
 
 }
+
+resource "aws_ssm_parameter" "elasticsearch_host" {
+  name        = "/${var.project_name_prefix}/elasticsearch/host"
+  description = "Elasticsearch Host"
+  type        = "String"
+  value       = var.create_aws_elasticsearch && !var.create_aws_ec2_elasticsearch ? aws_elasticsearch_domain.elasticsearch[0].endpoint : aws_instance.ec2_elasticsearch[0].private_ip
+  tags        = merge(var.common_tags, tomap({ "Name" : "${var.project_name_prefix}-elasticsearch" }))
+}
+
+resource "aws_ssm_parameter" "elasticsearch_username" {
+  name        = "/${var.project_name_prefix}/elasticsearch/username"
+  description = "Elasticsearch Username"
+  type        = "SecureString"
+  value       = ""
+  tags        = merge(var.common_tags, tomap({ "Name" : "${var.project_name_prefix}-elasticsearch" }))
+}
+
+resource "aws_ssm_parameter" "elasticsearch_password" {
+  name        = "/${var.project_name_prefix}/elasticsearch/password"
+  description = "Elasticsearch Password"
+  type        = "SecureString"
+  value       = ""
+  tags        = merge(var.common_tags, tomap({ "Name" : "${var.project_name_prefix}-elasticsearch" }))
+}
