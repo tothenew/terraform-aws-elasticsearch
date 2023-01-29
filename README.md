@@ -9,16 +9,10 @@ This is a elasticsearch to use for baseline. The default actions will provide up
 
 ```
 module "elasticsearch" {
-  source = "git::https://github.com/tothenew/terraform-aws-elasticsearch.git"
-  vpc_id              = "vpc-999999999999"
-  subnet_ids          = ["subnet-999999999999"]
-
-  create_aws_elasticsearch     = false
-  create_aws_ec2_elasticsearch = true
-
-  #  create_iam_service_linked_role = true
-
-  key_name                = "tothenew"
+  source     = "git::https://github.com/tothenew/terraform-aws-elasticsearch.git"
+  vpc_id     = "vpc-999999999999"
+  subnet_ids = ["subnet-999999999999"]
+  key_name   = "tothenew"
 }
 ```
 
