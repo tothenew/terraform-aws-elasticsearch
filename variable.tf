@@ -1,16 +1,16 @@
-variable "region" {
-  type        = string
-  description = "A string value for Launch resources in which AWS Region"
-}
-
 variable "project_name_prefix" {
   type        = string
   description = "A string value to describe prefix of all the resources"
+  default     = "dev-tothenew"
 }
 
 variable "common_tags" {
   type        = map(string)
   description = "A map to add common tags to all the resources"
+  default = {
+    Environment = "dev"
+    Project     = "ToTheNew",
+  }
 }
 
 variable "vpc_id" {
@@ -18,20 +18,27 @@ variable "vpc_id" {
   description = "A string value for VPC ID"
 }
 
+variable "subnet_ids" {
+  type        = list(string)
+  description = "Subnet Ids where server will be launched"
+}
+
 variable "security_group_ids" {
   type        = list(string)
   description = "A string value for Security Group ID"
+  default     = []
+}
+
+variable "kms_key_id" {
+  type        = string
+  description = "KMS key ID for creating AWS resources default alias for EC2 is aws/ebs and for AWS Elasticsearch aws/es"
+  default     = "alias/aws/ebs"
 }
 
 variable "cloudwatch_logs_retention" {
   type        = number
   description = "Cloudwatch logs of the AWS Elasticsearch retention period"
   default     = 7
-}
-
-variable "subnet_ids" {
-  type        = list(string)
-  description = "Subnet Ids where server will be launched"
 }
 
 variable "volume_type" {
@@ -67,6 +74,7 @@ variable "elasticsearch_version" {
 variable "instance_type" {
   type        = string
   description = "Instance type of the Server"
+  default     = "t3.large"
 }
 
 variable "instance_count" {
@@ -85,11 +93,6 @@ variable "zone_awareness_enabled" {
   type        = bool
   description = "Zone Awareness enable for multi AZ"
   default     = false
-}
-
-variable "kms_key_id" {
-  type        = string
-  description = "KMS key ID for creating AWS resources"
 }
 
 variable "automated_snapshot_start_hour" {
@@ -135,13 +138,13 @@ variable "create_aws_ec2_elasticsearch" {
 variable "key_name" {
   type        = string
   description = "Key name for launching the EC2 instance"
-  default     = "undefined"
+  default     = ""
 }
 
 variable "iam_instance_profile" {
   type        = string
   description = "IAM Profile name for launching the EC2 instance"
-  default     = "undefined"
+  default     = ""
 }
 
 variable "ebs_optimized" {
@@ -153,13 +156,13 @@ variable "ebs_optimized" {
 variable "disable_api_termination" {
   type        = bool
   description = "Disable API termination means disable instance termination"
-  default     = false
+  default     = true
 }
 
 variable "disable_api_stop" {
   type        = bool
   description = "Disable API stop means disable instance stop"
-  default     = false
+  default     = true
 }
 
 variable "source_dest_check" {
