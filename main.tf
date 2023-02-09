@@ -131,11 +131,17 @@ resource "aws_iam_role" "elasticsearch_role" {
   POLICY
 }
 
+
+data "aws_iam_policy" "elasticsearch_ssm_mananged_instance_core" {
+  arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+}
+
 resource "aws_iam_role_policy_attachment" "elasticsearch_AmazonSSMManagedInstanceCore" {
   count      = var.iam_instance_profile == "" ? 1 : 0
-  policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+  policy_arn = data.aws_iam_policy.elasticsearch_ssm_mananged_instance_core.arn
   role       = aws_iam_role.elasticsearch_role[0].name
 }
+
 
 resource "aws_iam_instance_profile" "elasticsearch_profile" {
   count = var.iam_instance_profile == "" ? 1 : 0
