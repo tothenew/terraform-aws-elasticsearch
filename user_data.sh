@@ -45,4 +45,9 @@ sudo systemctl daemon-reload
 sudo systemctl start elasticsearch_exporter
 sudo systemctl enable elasticsearch_exporter
 
+sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install repository-s3
+sudo service elasticsearch start
+sudo /usr/share/elasticsearch/bin/elasticsearch
+
+
 
