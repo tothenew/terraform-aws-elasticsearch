@@ -171,7 +171,23 @@ resource "aws_security_group" "elasticsearch_sg" {
     self        = true
     protocol    = "tcp"
   }
-
+  
+  ingress {
+    description = "Allow node_exporter communication"
+    from_port   = 9100
+    to_port     = 9100
+    self        = true
+    protocol    = "tcp"
+  }
+  
+  ingress {
+    description = "Allow elastic_search exporter communication"
+    from_port   = 9114
+    to_port     = 9114
+    self        = true
+    protocol    = "tcp"
+  }
+  
   egress {
     description = "Allow elasticsearch node communication"
     from_port   = 9300
