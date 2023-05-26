@@ -155,7 +155,23 @@ resource "aws_security_group" "elasticsearch_sg" {
   tags        = merge(var.common_tags, tomap({ "Name" : "${var.project_name_prefix}-elasticsearch-sg" }))
   description = "Elasticsearch security group"
   vpc_id      = var.vpc_id
-
+  
+  ingress {
+    description = "Allow node_exporter communication"
+    from_port   = 9100
+    to_port     = 9100
+    self        = true
+    protocol    = "tcp"
+  }
+  
+  ingress {
+    description = "Allow elastic_search exporter communication"
+    from_port   = 9114
+    to_port     = 9114
+    self        = true
+    protocol    = "tcp"
+  }
+   
   ingress {
     description = "Allow HTTP client communication"
     from_port   = 9200
