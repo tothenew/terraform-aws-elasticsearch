@@ -18,3 +18,4 @@ echo "xpack.security.enabled: false"  >> /etc/elasticsearch/elasticsearch.yml
 echo "xpack.security.transport.ssl.enabled: false"  >> /etc/elasticsearch/elasticsearch.yml
 
 sudo systemctl restart elasticsearch.service
+${master_user_data}
