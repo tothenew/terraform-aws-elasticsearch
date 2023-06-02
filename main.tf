@@ -204,6 +204,9 @@ data "aws_ami" "amazon_linux_2" {
 
 data "template_file" "user_data" {
   template = file("${path.module}/user_data.sh")
+  vars = {
+    master_user_data = file(var.master_user_data_path == "" ? "" : var.master_user_data_path)
+  }
 }
 
 resource "aws_instance" "ec2_elasticsearch" {
