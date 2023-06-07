@@ -4,7 +4,7 @@ variable "project_name_prefix" {
   default     = "dev-tothenew"
 }
 
-variable "master_user_data_path" {
+variable "extended_user_data_path" {
   description = "Path for userdata file"
   type = string
   default = ""
