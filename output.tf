@@ -17,3 +17,7 @@ output "kibana_endpoint" {
 output "ec2_elasticsearch_private_ip" {
   value = !var.create_aws_elasticsearch && var.create_aws_ec2_elasticsearch ? aws_instance.ec2_elasticsearch[0].private_ip : "undefined"
 }
+
+output "security_group_id" {
+  value = aws_security_group.elasticsearch_sg.id
+}
