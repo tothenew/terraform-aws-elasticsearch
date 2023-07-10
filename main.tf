@@ -206,8 +206,12 @@ data "template_file" "user_data" {
   template = file("${path.module}/user_data.sh")
 }
 
+resource "aws_kms_key" "custom_kms_key" {
+  description = "Custom KMS key for EC2 encryption"
+}
+
 resource "aws_instance" "ec2_elasticsearch" {
-  count                   = !var.create_aws_elasticsearch && var.create_aws_ec2_elasticsearch ? 1 : 0
+  count                   = !var.create_aws_elasticsearch && var.create_aws_ec2_elasticsearch ? var.instance_count : 0
   ami                     = var.ami_id == "" ? data.aws_ami.amazon_linux_2.id : var.ami_id
   instance_type           = var.instance_type
   subnet_id               = var.subnet_ids[0]
@@ -226,7 +230,7 @@ resource "aws_instance" "ec2_elasticsearch" {
   root_block_device {
     delete_on_termination = var.delete_on_termination
     encrypted             = var.volume_encrypted
-    kms_key_id            = var.kms_key_id
+    kms_key_id            = aws_kms_key.custom_kms_key.arn
     volume_size           = var.volume_size
     volume_type           = var.volume_type
   }
