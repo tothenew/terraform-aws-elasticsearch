@@ -4,6 +4,15 @@ data "aws_region" "current" {}
 data "aws_vpc" "selected" {
   id = var.vpc_id
 }
+data "template_cloudinit_config" "server_config" {
+  gzip          = true
+  base64_encode = true
+  part {
+    content_type = "text/cloud-config"
+    content = templatefile("${path.module}/userdata.yml", {
+    })
+  }
+}
 
 resource "aws_cloudwatch_log_group" "cloudwatch_log_group" {
   count             = var.create_aws_elasticsearch && !var.create_aws_ec2_elasticsearch ? 1 : 0
@@ -221,7 +230,7 @@ resource "aws_instance" "ec2_elasticsearch" {
   ebs_optimized           = var.ebs_optimized
   disable_api_termination = var.disable_api_termination
   #disable_api_stop        = var.disable_api_stop
-  user_data_base64  = base64encode(data.template_file.user_data.rendered)
+  user_data               = data.template_cloudinit_config.server_config.rendered
   source_dest_check = var.source_dest_check
 
   volume_tags = merge(var.common_tags, tomap({ "Name" : "${var.project_name_prefix}-elasticsearch" }))
