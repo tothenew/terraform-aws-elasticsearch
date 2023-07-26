@@ -4,6 +4,15 @@ data "aws_region" "current" {}
 data "aws_vpc" "selected" {
   id = var.vpc_id
 }
+data "template_cloudinit_config" "server_config" {
+  gzip          = true
+  base64_encode = true
+  part {
+    content_type = "text/cloud-config"
+    content = templatefile("${path.module}/userdata.yml", {
+    })
+  }
+}
 
 resource "aws_cloudwatch_log_group" "cloudwatch_log_group" {
   count             = var.create_aws_elasticsearch && !var.create_aws_ec2_elasticsearch ? 1 : 0
@@ -206,8 +215,12 @@ data "template_file" "user_data" {
   template = file("${path.module}/user_data.sh")
 }
 
+resource "aws_kms_key" "custom_kms_key" {
+  description = "Custom KMS key for EC2 encryption"
+}
+
 resource "aws_instance" "ec2_elasticsearch" {
-  count                   = !var.create_aws_elasticsearch && var.create_aws_ec2_elasticsearch ? 1 : 0
+  count                   = !var.create_aws_elasticsearch && var.create_aws_ec2_elasticsearch ? var.instance_count : 0
   ami                     = var.ami_id == "" ? data.aws_ami.amazon_linux_2.id : var.ami_id
   instance_type           = var.instance_type
   subnet_id               = var.subnet_ids[0]
@@ -217,7 +230,7 @@ resource "aws_instance" "ec2_elasticsearch" {
   ebs_optimized           = var.ebs_optimized
   disable_api_termination = var.disable_api_termination
   #disable_api_stop        = var.disable_api_stop
-  user_data_base64  = base64encode(data.template_file.user_data.rendered)
+  user_data               = data.template_cloudinit_config.server_config.rendered
   source_dest_check = var.source_dest_check
 
   volume_tags = merge(var.common_tags, tomap({ "Name" : "${var.project_name_prefix}-elasticsearch" }))
@@ -226,7 +239,7 @@ resource "aws_instance" "ec2_elasticsearch" {
   root_block_device {
     delete_on_termination = var.delete_on_termination
     encrypted             = var.volume_encrypted
-    kms_key_id            = var.kms_key_id
+    kms_key_id            = aws_kms_key.custom_kms_key.arn
     volume_size           = var.volume_size
     volume_type           = var.volume_type
   }
