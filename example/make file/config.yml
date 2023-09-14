@@ -1,0 +1,17 @@
+common:
+  vpn_cidr: "10.0.0.0/16"
+
+workspaces:
+  nonprod-us-west-1-default:
+    aws:
+      account_id: 906495541320
+      region: us-west-1
+    account_name: nonprod
+    project_name: test
+    project_name_prefix: non-prod
+    vpc_id: vpc-0ab031c103e640687
+    subnet_ids: ["subnet-02dc1f9e252fe1c0b","subnet-0bbe0d93a32e72aa5"]
+    instance_type: t3.large
+    instance_count: 1
+    volume_size: 50
+    key_name: "test"
