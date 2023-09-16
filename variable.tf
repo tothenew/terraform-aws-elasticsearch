@@ -74,7 +74,7 @@ variable "elasticsearch_version" {
 variable "instance_type" {
   type        = string
   description = "Instance type of the Server"
-  default     = "t3.large"
+  default     = "t4g.large"
 }
 
 variable "instance_count" {
