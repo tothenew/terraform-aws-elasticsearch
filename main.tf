@@ -205,18 +205,22 @@ resource "aws_security_group" "elasticsearch_sg" {
   }
 }
 
-data "aws_ami" "amazon_linux_2" {
+data "aws_ami" "amazon_linux_2_arm" {
   most_recent = true
+
   filter {
     name   = "owner-alias"
     values = ["amazon"]
   }
+
   filter {
     name   = "name"
-    values = ["amzn2-ami-hvm*"]
+    values = ["amzn2-ami-hvm-*-arm64-gp2"]
   }
+
   owners = ["amazon"]
 }
+
 
 data "template_file" "user_data" {
   template = file("${path.module}/user_data.sh")
@@ -224,7 +228,7 @@ data "template_file" "user_data" {
 
 resource "aws_instance" "ec2_elasticsearch" {
   count                   = !var.create_aws_elasticsearch && var.create_aws_ec2_elasticsearch ? 1 : 0
-  ami                     = var.ami_id == "" ? data.aws_ami.amazon_linux_2.id : var.ami_id
+  ami                     = var.ami_id == "" ? data.aws_ami.amazon_linux_2_arm.id : var.ami_id
   instance_type           = var.instance_type
   subnet_id               = var.subnet_ids[0]
   vpc_security_group_ids  = length(var.security_group_ids) == 0 ? [aws_security_group.elasticsearch_sg.id] : concat([aws_security_group.elasticsearch_sg.id], var.security_group_ids)
