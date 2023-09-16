@@ -1,35 +1,43 @@
 #!/bin/bash
 
-version=7.17.8
-wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-"$version"-x86_64.rpm
-wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-"$version"-x86_64.rpm.sha512
-shasum -a 512 -c elasticsearch-"$version"-x86_64.rpm.sha512
-sudo rpm --install elasticsearch-"$version"-x86_64.rpm
+# Elasticsearch version
+version=8.10.0
 
+# Node Exporter version
+node_exporter_version=1.6.1
+
+# Elasticsearch Exporter version
+elasticsearch_exporter_version=1.6.0
+
+# Install Elasticsearch
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-"$version"-linux-aarch64.tar.gz
+tar -zxvf elasticsearch-"$version"-linux-aarch64.tar.gz
+sudo mv elasticsearch-"$version" /usr/share/elasticsearch
+sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install repository-s3 --batch
+
+# Configure Elasticsearch
+cat <<EOL | sudo tee /etc/elasticsearch/elasticsearch.yml
+transport.host: localhost
+transport.tcp.port: 9300
+http.port: 9200
+network.host: 0.0.0.0
+xpack.security.enabled: false
+xpack.security.transport.ssl.enabled: false
+EOL
+
+# Start Elasticsearch
 sudo systemctl daemon-reload
 sudo systemctl enable elasticsearch.service
 sudo systemctl start elasticsearch.service
 
-echo "transport.host: localhost" >> /etc/elasticsearch/elasticsearch.yml
-echo "transport.tcp.port: 9300" >> /etc/elasticsearch/elasticsearch.yml
-echo "http.port: 9200"  >> /etc/elasticsearch/elasticsearch.yml
-echo "network.host: 0.0.0.0"  >> /etc/elasticsearch/elasticsearch.yml
-echo "xpack.security.enabled: false"  >> /etc/elasticsearch/elasticsearch.yml
-echo "xpack.security.transport.ssl.enabled: false"  >> /etc/elasticsearch/elasticsearch.yml
-
-sudo systemctl restart elasticsearch.service
-
-wget https://github.com/prometheus/node_exporter/releases/download/v1.5.0/node_exporter-1.5.0.linux-amd64.tar.gz
-tar xvfz node_exporter-1.5.0.linux-amd64.tar.gz
-
-# Move Node Exporter binaries
-sudo mv node_exporter-1.5.0.linux-amd64/node_exporter /usr/local/bin/
-
-# Create a system user for Node Exporter
+# Install Node Exporter
+wget https://github.com/prometheus/node_exporter/releases/download/v"$node_exporter_version"/node_exporter-"$node_exporter_version".darwin-amd64.tar.gz
+tar -zxvf node_exporter-"$node_exporter_version".darwin-amd64.tar.gz
+sudo mv node_exporter-"$node_exporter_version".darwin-amd64/node_exporter /usr/local/bin/
 sudo useradd -rs /bin/false node_exporter
 
-# Create a systemd service file for Node Exporter
-sudo tee /etc/systemd/system/node_exporter.service << EOF
+# Create a systemd service for Node Exporter
+cat <<EOL | sudo tee /etc/systemd/system/node_exporter.service
 [Unit]
 Description=Node Exporter
 Wants=network-online.target
@@ -42,27 +50,20 @@ ExecStart=/usr/local/bin/node_exporter
 
 [Install]
 WantedBy=default.target
-EOF
+EOL
 
-# Set ownership and permissions
-sudo chown node_exporter:node_exporter /usr/local/bin/node_exporter
-sudo chmod +x /usr/local/bin/node_exporter
-
-# Reload systemd and start Node Exporter
+# Start Node Exporter
 sudo systemctl daemon-reload
+sudo systemctl enable node_exporter
 sudo systemctl start node_exporter
 
-# Enable Node Exporter to start on system boot
-sudo systemctl enable node_exporter
-sudo systemctl status node_exporter
+# Install Elasticsearch Exporter
+wget https://github.com/prometheus-community/elasticsearch_exporter/releases/download/v"$elasticsearch_exporter_version"/elasticsearch_exporter-"$elasticsearch_exporter_version".darwin-arm64.tar.gz
+tar -zxvf elasticsearch_exporter-"$elasticsearch_exporter_version".darwin-arm64.tar.gz
+sudo mv elasticsearch_exporter-"$elasticsearch_exporter_version".darwin-arm64/elasticsearch_exporter /usr/local/bin/
 
-wget https://github.com/justwatchcom/elasticsearch_exporter/releases/download/v1.1.0rc1/elasticsearch_exporter-1.1.0rc1.linux-amd64.tar.gz
-tar -xvf elasticsearch_exporter-1.1.0rc1.linux-amd64.tar.gz
-cd elasticsearch_exporter-1.1.0rc1.linux-amd64/
-sudo cp elasticsearch_exporter /usr/local/bin/
-
-# Create a systemd service file for the exporter
-cat << EOF | sudo tee /etc/systemd/system/elasticsearch_exporter.service
+# Create a systemd service for Elasticsearch Exporter
+cat <<EOL | sudo tee /etc/systemd/system/elasticsearch_exporter.service
 [Unit]
 Description=ElasticSearch exporter
 Wants=network-online.target
@@ -75,15 +76,15 @@ ExecStart=/usr/local/bin/elasticsearch_exporter
 
 [Install]
 WantedBy=multi-user.target
-EOF
+EOL
 
-# Reload systemd and start the exporter
+# Start Elasticsearch Exporter
 sudo systemctl daemon-reload
-sudo systemctl start elasticsearch_exporter
-sudo systemctl enable elasticsearch_exporter
+sudo systemctl enable elasticsearch_exporter.service
+sudo systemctl start elasticsearch_exporter.service
 
-cd /usr/share/elasticsearch/
-sudo bin/elasticsearch-plugin install repository-s3 --batch
+# Enable Elasticsearch Exporter to start on system boot
+sudo systemctl enable elasticsearch_exporter.service
+
+# Restart Elasticsearch
 sudo systemctl restart elasticsearch
-
-
