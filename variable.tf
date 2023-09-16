@@ -68,7 +68,7 @@ variable "delete_on_termination" {
 variable "elasticsearch_version" {
   type        = string
   description = "AWS Elasticsearch version default is 7.10 which is latest"
-  default     = "7.10"
+  default     = "8.10.0"
 }
 
 variable "instance_type" {
