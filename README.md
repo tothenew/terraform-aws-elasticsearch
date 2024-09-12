@@ -90,6 +90,7 @@ No modules.
 | <a name="input_volume_type"></a> [volume\_type](#input\_volume\_type) | Volume type for EC2 instance default latest type | `string` | `"gp3"` | no |
 | <a name="input_vpc_id"></a> [vpc\_id](#input\_vpc\_id) | A string value for VPC ID | `string` | n/a | yes |
 | <a name="input_zone_awareness_enabled"></a> [zone\_awareness\_enabled](#input\_zone\_awareness\_enabled) | Zone Awareness enable for multi AZ | `bool` | `false` | no |
+| <a name="extended_user_data_path"></a> [extended\_user\_data\_path](#extended\_user\_data\_path) | Path to extended user data file which is used to append addtional script on the existing script from outside the module | `string` | `user_data.sh` | no |
 
 ## Outputs
 

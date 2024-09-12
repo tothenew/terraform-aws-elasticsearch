@@ -213,6 +213,9 @@ data "aws_ami" "amazon_linux_2" {
 
 data "template_file" "user_data" {
   template = file("${path.module}/user_data.sh")
+  vars = {
+    extended_user_data = file(var.extended_user_data_path == "" ? "" : var.extended_user_data_path)
+  }
 }
 
 resource "aws_kms_key" "custom_kms_key" {
